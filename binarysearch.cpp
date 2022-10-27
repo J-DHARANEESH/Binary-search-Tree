@@ -1,4 +1,5 @@
 
+
 #include <iostream>
 using namespace std;
 // Definition of Node for Binary search tree
@@ -18,7 +19,6 @@ BstNode *GetNewNode(int data)
 	return newNode;
 }
 
-// To insert data in BST, returns address of root node
 BstNode *Insert(BstNode *root, int data)
 {
 	if (root == NULL)
@@ -37,7 +37,7 @@ BstNode *Insert(BstNode *root, int data)
 	}
 	return root;
 }
-// To search an element in BST, returns true if element is found
+
 bool Search(BstNode *root, int data)
 {
 	if (root == NULL)
@@ -57,16 +57,41 @@ bool Search(BstNode *root, int data)
 		return Search(root->right, data);
 	}
 }
+
+void inorder(BstNode *root)
+{
+	if (root != NULL)
+	{
+		inorder(root->left);
+		cout << root->data;
+		inorder(root->right);
+	}
+}
+
+int minimum_val(struct BstNode *BstNode)
+{
+	struct BstNode *cur = BstNode;
+	while (cur->left != NULL)
+	{
+		cur = cur->left;
+	}
+	return (cur->data);
+}
+
 int main()
 {
-	BstNode *root = NULL; // Creating an empty tree
+	BstNode *root = NULL;
 	int c, e;
+	string b;
+	// bool r;
 
 	do
 	{
-		cout << "1.Insert\n";
+		cout << "\n1.Insert\n";
 		cout << "2.Search\n";
-		cout << "3.Exit\n";
+		cout << "3.Display\n";
+		cout << "4.Min Value\n";
+		cout << "5.Exit\n";
 		cout << "Enter your choice : ";
 		cin >> c;
 		switch (c)
@@ -78,22 +103,31 @@ int main()
 			root = Insert(root, e);
 			break;
 		case 2:
-			// Ask user to enter a number.
+
 			int number;
 			cout << "Enter number be searched\n";
 			cin >> number;
-			// If number is found, print "FOUND"
+			// r=Search(root,number);
+
+			// cout<< r;
+			//  If number is found, print "FOUND"
 			if (Search(root, number) == true)
 				cout << "Found\n";
 			else
 				cout << "Not Found\n";
 			break;
 		case 3:
+			inorder(root);
+			break;
+		case 4:
+			cout << minimum_val(root);
+			break;
+		case 5:
 			break;
 
 		default:
 			cout << "Wrong choice\n";
 		};
-	} while (c != 3);
+	} while (c != 5);
 	return 0;
 };
